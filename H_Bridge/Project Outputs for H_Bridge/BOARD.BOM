@@ -1,0 +1,22 @@
+Bill of Material for 
+On 2018-06-06 at 9:14:36 PM
+
+ Comment             Pattern     Quantity  Components
+------------------------------------------------------------------------------
+ 0393570009          9POS_CONNECTOR    1    J1                           CONN TERMINAL BLOCK 9POS 3.5MM 
+ 1k                  R0805            2    R1, R3                       RES SMD 1K OHM 0805 1K Ohm 0.1% 0.125W(1/8W) ±25ppm/C Molded SMD Automotive Punched T/R 
+ 1N4148X-TP          SOD523           2    D1, D2                       DIODE GEN PURP 75V 150MA SOD523 
+ 1uF                 C0805            4    C5, C6, C7, C8               CAP MLCC 1UF 25V X7R 0805 
+ 50R                 R2512            1    R2                           RES SMD 50 OHM 1% 1W 2515 
+ 732-5316-ND         3PIN_HEADER      2    JP1, JP2                     CONN_HeaderPins3pos WURTH ELEKTRONIK Board-To-Board Connector, Vertical, WR-PHD Series, Through Hole, Header, 3 Contacts, 2.54 mm 
+ C3216X5R1E106K160AB C1206            2    C3, C4                       CAP MLCC 10µF ±10% 25V X5R Ceramic Capacitor -55°C ~ 85°C Surface Mount, MLCC 1206 (3216 Metric) 0.126" L x 0.063" W (3.20mm x 1.60mm) 
+ CDBA540-HF          DO214-AC         4    D3, D4, D5, D6               DIODE Schottky Diodes & Rectifiers 40V, 5A 
+ DCDC                DCDC             1    U4                           Non-Isolated DC/DC Converters 8-28Vin 5V 1.0A THRU 
+ ED555/2DS           2POS_CONNECTOR    1    J2                           TERMINAL BLOCK 3.5MM 2POS PCB 
+ IRFZ44ESTRLPBF      D2PAK            5    Q1, Q2, Q3, Q4, Q5           MOSFET N-CH 60V 48A D2PAK 
+ LT1160IS#PBF        SOIC-14          2    U1, U2                       IC PWR MOSFET DRIVER N-CH 14SOIC 
+ LTST-C191TBKT-5A    LED_0603         1    D8                           LED BLUE CLEAR 0603 SMD 
+ NC7WZ14P6X          TSOP-6           1    U5                           IC INVERTER DUAL SCHMITT SC70-6 
+ S3BB-TP             DO-214AA_Diode    1    D7                           DIODE GEN PURP 100V 3A DO214AA 
+ SI8645BA-B-IUR      QSOP-16          1    U3                           IC DIGITAL ISOLATOR 4CHANNEL 150MBPS 1000VRMS ISOLATION NO ISOLATED POWER 
+ UVR2A102MRD6        CAP_THRU         2    C1, C2                       CAP Electrolytic 1000uF 100V 
