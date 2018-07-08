@@ -1,6 +1,6 @@
 #define __unsigned_chars__ 1	/* Predefined */
 #define __DATE__ "Jul  2 2018"	/* Predefined */
-#define __TIME__ "16:01:23"	/* Predefined */
+#define __TIME__ "16:54:26"	/* Predefined */
 #define __STDC__ 1	/* Predefined */
 #define __STDC_VERSION__ 199409L	/* Predefined */
 #define __TI_C99_COMPLEX_ENABLED__ 1	/* Predefined */
@@ -36,4 +36,5 @@
 #define __TI_STRICT_FP_MODE__ 1	/* Predefined */
 #define _OPTIMIZE_FOR_SPACE 1
 #define ccs ccs
+#define TARGET_IS_TM4C123_RA0 1
 #define PART_TM4C123GH6PM 1

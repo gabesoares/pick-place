@@ -188,3 +188,61 @@ Caused by: java.lang.IllegalArgumentException:
 
 !ENTRY org.eclipse.cdt.core 1 0 2018-07-02 16:01:23.380
 !MESSAGE Indexed 'Pick-place-controls' (2 sources, 1 headers) in 0.053 sec: 52 declarations; 142 references; 0 unresolved inclusions; 0 syntax errors; 0 unresolved names (0%)
+!SESSION 2018-07-02 16:34:49.136 -----------------------------------------------
+eclipse.buildId=4.6.0.I20160606-1100
+java.version=1.8.0_112
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86, WS=win32, NL=en_CA
+Framework arguments:  -product com.ti.ccstudio.branding.product
+Command-line arguments:  -os win32 -ws win32 -arch x86 -product com.ti.ccstudio.branding.product
+
+!ENTRY com.ti.common.core 4 0 2018-07-02 16:34:53.826
+!MESSAGE path=ccs_base/DebugServer
+
+!ENTRY com.ti.common.core 4 0 2018-07-02 16:34:53.832
+!MESSAGE debugServerDir=C:/ti/ccsv7/ccs_base/DebugServer
+
+!ENTRY org.eclipse.cdt.core 1 0 2018-07-02 17:30:20.409
+!MESSAGE Indexed 'bitband' (3 sources, 19 headers) in 0.862 sec: 623 declarations; 6,553 references; 0 unresolved inclusions; 1 syntax errors; 8 unresolved names (0.11%)
+
+!ENTRY org.eclipse.cdt.core 1 0 2018-07-02 17:30:22.127
+!MESSAGE Indexed 'hello' (3 sources, 19 headers) in 0.836 sec: 598 declarations; 6,511 references; 0 unresolved inclusions; 0 syntax errors; 0 unresolved names (0%)
+
+!ENTRY org.eclipse.cdt.core 1 0 2018-07-02 17:30:22.306
+!MESSAGE Indexed 'blinky' (2 sources, 8 headers) in 0.167 sec: 335 declarations; 358 references; 0 unresolved inclusions; 0 syntax errors; 0 unresolved names (0%)
+
+!ENTRY org.eclipse.cdt.core 1 0 2018-07-02 17:30:23.326
+!MESSAGE Indexed 'gpio_jtag' (4 sources, 21 headers) in 1.01 sec: 663 declarations; 6,856 references; 0 unresolved inclusions; 1 syntax errors; 8 unresolved names (0.11%)
+
+!ENTRY org.eclipse.cdt.core 1 0 2018-07-02 17:30:24.070
+!MESSAGE Indexed 'uart_echo' (2 sources, 14 headers) in 0.611 sec: 549 declarations; 5,326 references; 0 unresolved inclusions; 0 syntax errors; 0 unresolved names (0%)
+
+!ENTRY org.eclipse.cdt.core 1 0 2018-07-02 17:30:25.252
+!MESSAGE Indexed 'usb_dev_gamepad' (5 sources, 30 headers) in 1.17 sec: 1,487 declarations; 7,850 references; 0 unresolved inclusions; 1 syntax errors; 4 unresolved names (0.043%)
+
+!ENTRY org.eclipse.cdt.core 1 0 2018-07-02 17:30:25.484
+!MESSAGE Indexed 'project0' (2 sources, 7 headers) in 0.208 sec: 331 declarations; 373 references; 0 unresolved inclusions; 0 syntax errors; 0 unresolved names (0%)
+
+!ENTRY org.eclipse.cdt.core 1 0 2018-07-02 17:30:27.596
+!MESSAGE Indexed 'usb_dev_bulk' (5 sources, 33 headers) in 2.06 sec: 1,913 declarations; 8,594 references; 0 unresolved inclusions; 0 syntax errors; 1 unresolved names (0.0095%)
+
+!ENTRY org.eclipse.cdt.core 1 0 2018-07-02 17:30:28.658
+!MESSAGE Indexed 'qs-rgb' (8 sources, 37 headers) in 1.05 sec: 1,985 declarations; 9,519 references; 0 unresolved inclusions; 6 syntax errors; 8 unresolved names (0.069%)
+
+!ENTRY org.eclipse.cdt.core 1 0 2018-07-02 17:30:29.783
+!MESSAGE Indexed 'usb_dev_serial' (5 sources, 35 headers) in 1.11 sec: 2,045 declarations; 9,041 references; 0 unresolved inclusions; 6 syntax errors; 8 unresolved names (0.072%)
+
+!ENTRY org.eclipse.cdt.core 1 0 2018-07-02 17:30:30.787
+!MESSAGE Indexed 'udma_demo' (5 sources, 27 headers) in 0.979 sec: 1,208 declarations; 8,136 references; 0 unresolved inclusions; 6 syntax errors; 8 unresolved names (0.086%)
+
+!ENTRY org.eclipse.cdt.core 1 0 2018-07-02 17:30:31.565
+!MESSAGE Indexed 'mpu_fault' (3 sources, 19 headers) in 0.764 sec: 651 declarations; 6,686 references; 0 unresolved inclusions; 1 syntax errors; 8 unresolved names (0.11%)
+
+!ENTRY org.eclipse.cdt.core 1 0 2018-07-02 17:30:32.273
+!MESSAGE Indexed 'interrupts' (3 sources, 19 headers) in 0.675 sec: 690 declarations; 6,886 references; 0 unresolved inclusions; 1 syntax errors; 8 unresolved names (0.11%)
+
+!ENTRY org.eclipse.cdt.core 1 0 2018-07-02 17:30:33.942
+!MESSAGE Indexed 'freertos_demo' (13 sources, 45 headers) in 1.65 sec: 2,253 declarations; 13,238 references; 0 unresolved inclusions; 6 syntax errors; 8 unresolved names (0.052%)
+
+!ENTRY org.eclipse.cdt.core 1 0 2018-07-02 17:30:34.643
+!MESSAGE Indexed 'timers' (3 sources, 19 headers) in 0.687 sec: 761 declarations; 6,816 references; 0 unresolved inclusions; 1 syntax errors; 8 unresolved names (0.11%)

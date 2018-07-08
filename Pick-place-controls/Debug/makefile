@@ -12,9 +12,11 @@ GEN_CMDS__FLAG :=
 ORDERED_OBJS += \
 "./main.obj" \
 "./tm4c123gh6pm_startup_ccs.obj" \
+"./utils/uartstdio.obj" \
 "../tm4c123gh6pm.cmd" \
 $(GEN_CMDS__FLAG) \
 -llibc.a \
+-l"C:/ti/TivaWare_C_Series-2.1.4.178/driverlib/ccs/Debug/driverlib.lib" \
 
 -include ../makefile.init
 
@@ -24,7 +26,9 @@ RMDIR := RMDIR /S/Q
 # All of the sources participating in the build are defined here
 -include sources.mk
 -include subdir_vars.mk
+-include utils/subdir_vars.mk
 -include subdir_rules.mk
+-include utils/subdir_rules.mk
 -include objects.mk
 
 ifneq ($(MAKECMDGOALS),clean)
@@ -141,7 +145,7 @@ all: $(OBJS) $(CMD_SRCS) $(GEN_CMDS)
 Pick-place-controls.out: $(OBJS) $(CMD_SRCS) $(GEN_CMDS)
 	@echo 'Building target: "$@"'
 	@echo 'Invoking: ARM Linker'
-	"C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.6.LTS/bin/armcl" -mv7M4 --code_state=16 --float_support=FPv4SPD16 -me --define=ccs="ccs" --define=PART_TM4C123GH6PM -g --gcc --diag_warning=225 --diag_wrap=off --display_error_number --abi=eabi -z -m"Pick-place-controls.map" --heap_size=0 --stack_size=512 -i"C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.6.LTS/lib" -i"C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.6.LTS/include" --reread_libs --diag_wrap=off --display_error_number --warn_sections --xml_link_info="Pick-place-controls_linkInfo.xml" --rom_model -o "Pick-place-controls.out" $(ORDERED_OBJS)
+	"C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.6.LTS/bin/armcl" -mv7M4 --code_state=16 --float_support=FPv4SPD16 -me --define=ccs="ccs" --define=TARGET_IS_TM4C123_RA0 --define=PART_TM4C123GH6PM -g --gcc --diag_warning=225 --diag_wrap=off --display_error_number --abi=eabi -z -m"Pick-place-controls.map" --heap_size=0 --stack_size=512 -i"C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.6.LTS/lib" -i"C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.6.LTS/include" --reread_libs --diag_wrap=off --display_error_number --warn_sections --xml_link_info="Pick-place-controls_linkInfo.xml" --rom_model -o "Pick-place-controls.out" $(ORDERED_OBJS)
 	@echo 'Finished building target: "$@"'
 	@echo ' '
 
@@ -155,8 +159,8 @@ Pick-place-controls.hex: $(EXE_OUTPUTS)
 # Other Targets
 clean:
 	-$(RM) $(BIN_OUTPUTS__QUOTED)$(EXE_OUTPUTS__QUOTED)
-	-$(RM) "main.obj" "tm4c123gh6pm_startup_ccs.obj" 
-	-$(RM) "main.d" "tm4c123gh6pm_startup_ccs.d" 
+	-$(RM) "main.obj" "tm4c123gh6pm_startup_ccs.obj" "utils\uartstdio.obj" 
+	-$(RM) "main.d" "tm4c123gh6pm_startup_ccs.d" "utils\uartstdio.d" 
 	-@echo 'Finished clean'
 	-@echo ' '
 
