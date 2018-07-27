@@ -1,0 +1,235 @@
+#include "inc/tm4c123gh6pm.h"
+#include <stdint.h>
+#include <stdio.h>
+#include <stdbool.h>
+#include <math.h>
+#include "driverlib/gpio.h"
+#include "inc/hw_memmap.h"
+#include "inc/hw_gpio.h"
+#include "driverlib/pin_map.h"
+#include "driverlib/pwm.h"
+#include "driverlib/sysctl.h"
+#include "driverlib/pin_map.h"
+#include "inc/hw_types.h"
+#include "driverlib/interrupt.h"
+#include "driverlib/timer.h"
+#include "driverlib/systick.h"
+#include "driverlib/qei.h"
+
+void pwmInit(void);
+void intIni(void);
+void magnetInit(void);
+void qeiInit(void);
+
+// CONSTANTS -------------------------------------------------------------------------
+float kp = 8, kd = 80, initialAngle = -45, finalAngle = 90;
+
+// VARIABLES -------------------------------------------------------------------------
+float lastError = 0, currentAngle = 0, error, p, d, flag = 0, object = 0, output, qeiPosition = 0, qeiRotation = 0, qeiDegrees = 0;
+
+// angles go 0 - 180 and 0 to -180
+// need two separate flags for direction (1 if CW) & object (1 if picked)
+
+void Timer0IntHandler(void){
+    TimerIntClear(TIMER0_BASE, TIMER_TIMA_TIMEOUT);
+
+
+    if (qeiDegrees > 180.0) {
+        qeiDegrees = (360.0 - qeiDegrees)*-1.0;
+    } // had to move this here because it was getting messed up in main since we are using a pointer
+
+   // use initial Angle as reference until object is picked up
+   if (flag == 0 && object == 0) {
+       error = initialAngle - qeiDegrees;
+   }
+
+   // if object has been picked up use final Angle as reference
+   else {
+      error = finalAngle - qeiDegrees;
+      object = 1; // need to know when object has been picked up so we know to use final angle as reference
+      // the first time flag = 1, the object should have been picked up
+      // might be a better place to put this
+   }
+
+     p = kp * error;
+     d = kd * (error - lastError);
+     output = p + d; // minimum PWM should be 80
+
+
+     if(output < 0){
+         output = (-1.0*output);
+         flag = 0; // go CCW
+     }
+
+     else {
+         flag = 1; // go CW
+     }
+
+     lastError = error;
+
+     // Setting max output duty cycle, so it never hits 100%.
+     if (output >= 1000)
+     {
+         output = 950;
+     }
+
+     if(flag==0) // first rotation - CCW
+     {
+         // make sure Q1/Q4 are off
+         GPIOPinTypeGPIOOutput(GPIO_PORTB_BASE, GPIO_PIN_5); // make pin 7 output for Q2/Q3 (CC)
+         GPIOPinWrite(GPIO_PORTB_BASE, GPIO_PIN_5, 0x00); // turning pwm off
+
+         GPIOPinTypePWM(GPIO_PORTB_BASE, GPIO_PIN_7);
+         PWMPulseWidthSet(PWM0_BASE, PWM_OUT_1, output); //CCW
+         /*if(qeiDegrees < initialAngle && qeiDegrees > 200){
+             flag = 1;
+         }*/
+     }
+
+     if(flag==1){ //turn CW
+
+            // make sure Q2/Q3 are off
+            GPIOPinTypeGPIOOutput(GPIO_PORTB_BASE, GPIO_PIN_7);
+            GPIOPinWrite(GPIO_PORTB_BASE, GPIO_PIN_7, 0x00); // turning pwm off for Q2/Q3
+
+            GPIOPinTypePWM(GPIO_PORTB_BASE, GPIO_PIN_5); //set pin back to PWM for Q1/Q4 (CW)
+            PWMPulseWidthSet(PWM0_BASE, PWM_OUT_3, output); //CW
+
+         if(qeiDegrees > 90.0){ //CCW
+             GPIOPinTypeGPIOOutput(GPIO_PORTB_BASE, GPIO_PIN_5);
+             GPIOPinWrite(GPIO_PORTB_BASE, GPIO_PIN_5, 0x00); // turning pwm off for Q1/Q4
+
+             }
+         }
+
+/*
+     if(error == 0){
+        GPIOPinTypeGPIOOutput(GPIO_PORTB_BASE, GPIO_PIN_5 | GPIO_PIN_7); // make pin 5 & 7 output
+         GPIOPinWrite(GPIO_PORTB_BASE, GPIO_PIN_5, 0x00); // turning pwm off
+         GPIOPinWrite(GPIO_PORTB_BASE, GPIO_PIN_7, 0x00); // turning pwm off
+         GPIOPinWrite(GPIO_PORTB_BASE, GPIO_PIN_0, GPIO_PIN_0); // turn magnet on
+
+         if(flag == 1){
+             GPIOPinWrite(GPIO_PORTB_BASE, GPIO_PIN_0, 0x00); //turn magnet off
+             flag = 2; // program is terminated as the motor will not move now
+         }
+         else if(flag == 0){
+             flag = 1; //ready for next rotation
+         }
+     }*/
+ }
+
+void gpioInit(void){
+
+    GPIOPadConfigSet(GPIO_PORTB_BASE,GPIO_PIN_5,GPIO_STRENGTH_8MA,GPIO_PIN_TYPE_STD_WPD);
+    GPIOPadConfigSet(GPIO_PORTB_BASE,GPIO_PIN_7,GPIO_STRENGTH_8MA,GPIO_PIN_TYPE_STD_WPD);
+
+    GPIOPinTypeGPIOOutput(GPIO_PORTB_BASE, GPIO_PIN_5 | GPIO_PIN_7); // make pin 5 output
+    GPIOPinWrite(GPIO_PORTB_BASE, GPIO_PIN_5, 0x00); // turning pwm off // setting to low
+    // make pin 7 output for Q2/Q3 (CC)
+    GPIOPinWrite(GPIO_PORTB_BASE, GPIO_PIN_7, 0x00); // turning pwm off / setting to low
+
+}
+
+
+void main(void) {
+
+        SysCtlClockSet(SYSCTL_SYSDIV_5 | SYSCTL_USE_OSC |   SYSCTL_OSC_MAIN | SYSCTL_XTAL_16MHZ);
+
+        magnetInit();
+        pwmInit();
+        intIni();
+        qeiInit();
+        gpioInit();
+
+
+        int *posPtr;
+        posPtr = (int *)0x4002c008;
+        int pos = *posPtr;
+
+
+       while(1){
+           qeiPosition = QEIPositionGet(QEI0_BASE);
+           qeiRotation = QEIDirectionGet(QEI0_BASE);
+           pos = *posPtr;
+           qeiDegrees = pos*360.0/12606.0;
+        }
+}
+
+void pwmInit(){
+         SysCtlPWMClockSet(SYSCTL_PWMDIV_32); //Configure PWM Clock to match system
+         SysCtlPeripheralEnable(SYSCTL_PERIPH_PWM0); // enable PWM
+         SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOB); // enable port B for GPIO
+
+          while(! SysCtlPeripheralReady(SYSCTL_PERIPH_PWM0)) {} // wait until port is ready
+
+          GPIODirModeSet(GPIO_PORTB_BASE, GPIO_PIN_5  | GPIO_PIN_7, GPIO_DIR_MODE_OUT); // set pins to output direction
+
+          GPIOPinTypePWM(GPIO_PORTB_BASE, GPIO_PIN_5 | GPIO_PIN_7 ); // configure pins as PWM
+
+          GPIOPinConfigure(GPIO_PB5_M0PWM3); // configure pins as PWM
+          GPIOPinConfigure(GPIO_PB7_M0PWM1); // configure pins as PWM
+
+          PWMGenConfigure(PWM0_BASE, PWM_GEN_0, PWM_GEN_MODE_DOWN | PWM_GEN_MODE_NO_SYNC); // gen 0 initilization
+          PWMGenConfigure(PWM0_BASE, PWM_GEN_1, PWM_GEN_MODE_DOWN | PWM_GEN_MODE_NO_SYNC); // gen 1 initialization
+
+          PWMGenPeriodSet(PWM0_BASE, PWM_GEN_0, 1000); // setting pwm period
+          PWMGenPeriodSet(PWM0_BASE, PWM_GEN_1, 1000); // setting pwm period
+
+          PWMOutputState(PWM0_BASE, (PWM_OUT_1_BIT | PWM_OUT_3_BIT), true); // putting pwm as output
+
+          PWMGenEnable(PWM0_BASE, PWM_GEN_0); // enable gen 0
+          PWMGenEnable(PWM0_BASE, PWM_GEN_1); // enable gen 1
+}
+
+void magnetInit(void){
+    SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOB); //enable port b
+    while (! SysCtlPeripheralReady(SYSCTL_PERIPH_GPIOB)) {} // wait to be initialized
+    GPIODirModeSet(GPIO_PORTB_BASE, GPIO_PIN_0, GPIO_DIR_MODE_OUT); // gpio pin output
+    GPIOPinTypeGPIOOutput(GPIO_PORTB_BASE, GPIO_PIN_0); //set the gpio pin to output
+    GPIOPadConfigSet(GPIO_PORTB_BASE,GPIO_PIN_0,GPIO_STRENGTH_8MA,GPIO_PIN_TYPE_STD_WPU); // weak pull up and 8ma current
+    GPIOPinWrite(GPIO_PORTB_BASE, GPIO_PIN_0, 0x00); // setting the magnet to off
+}
+
+void intIni(void){ //interupt initilization
+    uint32_t ui32Period;
+    SysCtlPeripheralEnable(SYSCTL_PERIPH_TIMER0);
+    TimerConfigure(TIMER0_BASE, TIMER_CFG_PERIODIC);
+    ui32Period = (SysCtlClockGet() / 100);
+    TimerLoadSet(TIMER0_BASE, TIMER_A, ui32Period - 1);
+    IntEnable(INT_TIMER0A);
+    TimerIntEnable(TIMER0_BASE, TIMER_TIMA_TIMEOUT);
+    IntMasterEnable();
+    TimerEnable(TIMER0_BASE, TIMER_A);
+}
+
+void qeiInit(void){
+    SysCtlPeripheralEnable (SYSCTL_PERIPH_GPIOD);
+    SysCtlPeripheralEnable (SYSCTL_PERIPH_QEI0);
+    while(!SysCtlPeripheralReady(SYSCTL_PERIPH_QEI0)) {}
+
+    HWREG(GPIO_PORTD_BASE + GPIO_O_LOCK) = GPIO_LOCK_KEY; //In Tiva include this is the same as "_DD" in older versions (0x4C4F434B)
+    HWREG(GPIO_PORTD_BASE + GPIO_O_CR) |= 0x80;
+    HWREG(GPIO_PORTD_BASE + GPIO_O_LOCK) = 0;
+    HWREG(QEI0_BASE + QEI0_CTL_R) |= QEI_CTL_FILTEN; // enables digital filter
+  // QEI_CTL_RESMODE; // enables using index pulse for reset
+
+    GPIOPinConfigure(GPIO_PD6_PHA0); // A
+    GPIOPinConfigure(GPIO_PD7_PHB0); // B
+    GPIOPinConfigure(GPIO_PD3_IDX0); // Index
+
+    GPIOPinTypeQEI(GPIO_PORTD_BASE, GPIO_PIN_3 | GPIO_PIN_6 |  GPIO_PIN_7);
+
+    QEIDisable(QEI0_BASE);
+    QEIIntDisable(QEI0_BASE,QEI_INTERROR | QEI_INTDIR | QEI_INTTIMER | QEI_INTINDEX);
+
+
+    QEIConfigure(QEI0_BASE, (QEI_CONFIG_CAPTURE_A_B  | QEI_CONFIG_NO_RESET  | QEI_CONFIG_QUADRATURE | QEI_CONFIG_NO_SWAP), 12606); //127990
+
+    QEIEnable(QEI0_BASE);
+
+
+    //QEIPositionSet (QEI0_BASE, 1234);
+}
+
+

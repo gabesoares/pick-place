@@ -10,7 +10,7 @@ GEN_OPTS__FLAG :=
 GEN_CMDS__FLAG := 
 
 ORDERED_OBJS += \
-"./main.obj" \
+"./main_July25.obj" \
 "./tm4c123gh6pm_startup_ccs.obj" \
 "./utils/uartstdio.obj" \
 "../tm4c123gh6pm.cmd" \
@@ -159,8 +159,8 @@ Pick-place-controls.hex: $(EXE_OUTPUTS)
 # Other Targets
 clean:
 	-$(RM) $(BIN_OUTPUTS__QUOTED)$(EXE_OUTPUTS__QUOTED)
-	-$(RM) "main.obj" "tm4c123gh6pm_startup_ccs.obj" "utils\uartstdio.obj" 
-	-$(RM) "main.d" "tm4c123gh6pm_startup_ccs.d" "utils\uartstdio.d" 
+	-$(RM) "main_July25.obj" "tm4c123gh6pm_startup_ccs.obj" "utils\uartstdio.obj" 
+	-$(RM) "main_July25.d" "tm4c123gh6pm_startup_ccs.d" "utils\uartstdio.d" 
 	-@echo 'Finished clean'
 	-@echo ' '
 

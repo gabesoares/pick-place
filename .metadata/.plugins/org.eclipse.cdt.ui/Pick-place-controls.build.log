@@ -3,45 +3,16 @@
 
 "C:\\ti\\ccsv7\\utils\\bin\\gmake" -k -j 4 all -O 
  
-'Building file: "../tm4c123gh6pm_startup_ccs.c"'
+'Building file: "../main_July25.c"'
 'Invoking: ARM Compiler'
-"C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.6.LTS/bin/armcl" -mv7M4 --code_state=16 --float_support=FPv4SPD16 -me --include_path="C:/Users/gabriel/Documents/School/MSE_312/pick-place/Pick-place-controls" --include_path="C:/ti/TivaWare_C_Series-2.1.4.178" --include_path="C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.6.LTS/include" --define=ccs="ccs" --define=TARGET_IS_TM4C123_RA0 --define=PART_TM4C123GH6PM -g --gcc --diag_warning=225 --diag_wrap=off --display_error_number --abi=eabi --preproc_with_compile --preproc_dependency="tm4c123gh6pm_startup_ccs.d_raw"  "../tm4c123gh6pm_startup_ccs.c"
-'Finished building: "../tm4c123gh6pm_startup_ccs.c"'
- 
-'Building file: "../main.c"'
-'Invoking: ARM Compiler'
-"C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.6.LTS/bin/armcl" -mv7M4 --code_state=16 --float_support=FPv4SPD16 -me --include_path="C:/Users/gabriel/Documents/School/MSE_312/pick-place/Pick-place-controls" --include_path="C:/ti/TivaWare_C_Series-2.1.4.178" --include_path="C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.6.LTS/include" --define=ccs="ccs" --define=TARGET_IS_TM4C123_RA0 --define=PART_TM4C123GH6PM -g --gcc --diag_warning=225 --diag_wrap=off --display_error_number --abi=eabi --preproc_with_compile --preproc_dependency="main.d_raw"  "../main.c"
-"../main.c", line 31: warning #225-D: function "ROM_SysCtlPeripheralEnable" declared implicitly
-"../main.c", line 37: warning #225-D: function "ROM_GPIOPinConfigure" declared implicitly
-"../main.c", line 39: warning #225-D: function "ROM_GPIOPinTypeUART" declared implicitly
-"../main.c", line 55: warning #225-D: function "ROM_GPIOPinTypeGPIOOutput" declared implicitly
-'Finished building: "../main.c"'
- 
-'Building file: "C:/ti/TivaWare_C_Series-2.1.4.178/utils/uartstdio.c"'
-'Invoking: ARM Compiler'
-"C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.6.LTS/bin/armcl" -mv7M4 --code_state=16 --float_support=FPv4SPD16 -me --include_path="C:/Users/gabriel/Documents/School/MSE_312/pick-place/Pick-place-controls" --include_path="C:/ti/TivaWare_C_Series-2.1.4.178" --include_path="C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.6.LTS/include" --define=ccs="ccs" --define=TARGET_IS_TM4C123_RA0 --define=PART_TM4C123GH6PM -g --gcc --diag_warning=225 --diag_wrap=off --display_error_number --abi=eabi --preproc_with_compile --preproc_dependency="utils/uartstdio.d_raw" --obj_directory="utils"  "C:/ti/TivaWare_C_Series-2.1.4.178/utils/uartstdio.c"
-'Finished building: "C:/ti/TivaWare_C_Series-2.1.4.178/utils/uartstdio.c"'
+"C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.6.LTS/bin/armcl" -mv7M4 --code_state=16 --float_support=FPv4SPD16 -me --include_path="C:/Users/gabriel/Documents/School/MSE_312/pick-place/Pick-place-controls" --include_path="C:/ti/TivaWare_C_Series-2.1.4.178" --include_path="C:/ti/TivaWare_C_Series-2.1.4.178/driverlib" --include_path="C:/ti/TivaWare_C_Series-2.1.4.178" --include_path="C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.6.LTS/include" --define=ccs="ccs" --define=TARGET_IS_TM4C123_RA0 --define=PART_TM4C123GH6PM -g --gcc --diag_warning=225 --diag_wrap=off --display_error_number --abi=eabi --preproc_with_compile --preproc_dependency="main_July25.d_raw"  "../main_July25.c"
+'Finished building: "../main_July25.c"'
  
 'Building target: "Pick-place-controls.out"'
 'Invoking: ARM Linker'
-"C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.6.LTS/bin/armcl" -mv7M4 --code_state=16 --float_support=FPv4SPD16 -me --define=ccs="ccs" --define=TARGET_IS_TM4C123_RA0 --define=PART_TM4C123GH6PM -g --gcc --diag_warning=225 --diag_wrap=off --display_error_number --abi=eabi -z -m"Pick-place-controls.map" --heap_size=0 --stack_size=512 -i"C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.6.LTS/lib" -i"C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.6.LTS/include" --reread_libs --diag_wrap=off --display_error_number --warn_sections --xml_link_info="Pick-place-controls_linkInfo.xml" --rom_model -o "Pick-place-controls.out" "./main.obj" "./tm4c123gh6pm_startup_ccs.obj" "./utils/uartstdio.obj" "../tm4c123gh6pm.cmd"  -llibc.a -l"C:/ti/TivaWare_C_Series-2.1.4.178/driverlib/ccs/Debug/driverlib.lib" 
+"C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.6.LTS/bin/armcl" -mv7M4 --code_state=16 --float_support=FPv4SPD16 -me --define=ccs="ccs" --define=TARGET_IS_TM4C123_RA0 --define=PART_TM4C123GH6PM -g --gcc --diag_warning=225 --diag_wrap=off --display_error_number --abi=eabi -z -m"Pick-place-controls.map" --heap_size=0 --stack_size=512 -i"C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.6.LTS/lib" -i"C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.6.LTS/include" --reread_libs --diag_wrap=off --display_error_number --warn_sections --xml_link_info="Pick-place-controls_linkInfo.xml" --rom_model -o "Pick-place-controls.out" "./main_July25.obj" "./tm4c123gh6pm_startup_ccs.obj" "./utils/uartstdio.obj" "../tm4c123gh6pm.cmd"  -llibc.a -l"C:/ti/TivaWare_C_Series-2.1.4.178/driverlib/ccs/Debug/driverlib.lib" 
 <Linking>
-
- undefined                  first referenced
-  symbol                        in file     
- ---------                  ----------------
- ROM_GPIOPinConfigure       ./main.obj      
- ROM_GPIOPinTypeGPIOOutput  ./main.obj      
- ROM_GPIOPinTypeUART        ./main.obj      
- ROM_SysCtlPeripheralEnable ./main.obj      
-
-error #10234-D: unresolved symbols remain
-error #10010: errors encountered during linking; "Pick-place-controls.out" not built
-
->> Compilation failure
-makefile:146: recipe for target 'Pick-place-controls.out' failed
-gmake[1]: *** [Pick-place-controls.out] Error 1
-makefile:142: recipe for target 'all' failed
-gmake: *** [all] Error 2
+'Finished building target: "Pick-place-controls.out"'
+ 
 
 **** Build Finished ****
