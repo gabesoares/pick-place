@@ -8,3 +8,5 @@ An electromagnet is placed at the tip of the crane, and is energized to pick up 
 The DC motor is driven by an H-Bridge. The circuit is designed and laid out onto a small PCB. 
 
 The H-bridge signals and electromagnet are controlled using a Tiva C microcontroller. It takes in quadrature encoder inputs, and outputs the speed & direction for the DC motor, in addition to an enable signal for the electromagnet. The final position for the crane is controlled in a feedback loop using a PID controller with the desired 'place' location being the reference input.
+
+![Pick and Place Truss](https://media.giphy.com/media/5PhDNnBHIBmpxO9xGE/giphy.gif)
